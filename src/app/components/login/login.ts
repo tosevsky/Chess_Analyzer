@@ -54,7 +54,7 @@ export class LoginComponent {
           this.errorMessage = error.message;
         } else if (data?.user) {
           
-          this.successMessage = 'Conta criada com sucesso! Enviámos um link de confirmação para o teu e-mail. Por favor, valida a tua conta antes de iniciar sessão.';
+          this.successMessage = 'Conta criada com sucesso!ATENÇÃo!! Enviámos um link de confirmação para o teu e-mail Verifica a tua caixa de SPAM. Por favor, valida a tua conta antes de iniciar sessão.';
           this.isSignUpMode = false; 
           this.loginForm.reset();
         }
