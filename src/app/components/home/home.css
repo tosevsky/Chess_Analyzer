@@ -1,0 +1,150 @@
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #ffffff, #e8f5e9);
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding-top: 110px;
+}
+
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem;
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+
+.menu-card {
+  background: #ffffff;
+  padding: 3.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+}
+
+
+.menu-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  border-color: #2c5e3b;
+}
+
+.icon-placeholder {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.card-icon {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.menu-card h3 {
+  color: #2c5e3b;
+  margin: 0.5rem 0 1rem 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.menu-card p {
+  color: #666666;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: 1.5rem;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .menu-card {
+    padding: 2.5rem 1.5rem;
+    min-height: 320px;
+  }
+
+  .icon-placeholder {
+    min-height: 80px;
+    margin-bottom: 1rem;
+  }
+
+  .card-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .menu-card h3 {
+    font-size: 1.4rem;
+  }
+
+  .menu-card p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 1rem;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .menu-card {
+    padding: 2rem 1rem;
+    min-height: 280px;
+  }
+
+  .icon-placeholder {
+    min-height: 70px;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .menu-card h3 {
+    font-size: 1.2rem;
+    margin: 0.3rem 0 0.8rem 0;
+  }
+
+  .menu-card p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .menu-card:hover {
+    transform: translateY(-4px);
+  }
+}

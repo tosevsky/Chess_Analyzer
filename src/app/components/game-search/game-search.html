@@ -1,0 +1,272 @@
+ <app-header></app-header>
+<div class="analysis-dashboard">
+  
+ 
+
+  <div class="dashboard-main-layout">
+    
+    <aside class="layout-card-panel section-pesquisa">
+      <h3 class="panel-title">Pesquisa</h3>
+      
+      <div class="form-field-group">
+        <label class="form-field-label">Jogador:</label>
+        <div class="search-input-wrapper" >
+          <input 
+            type="text" 
+            [(ngModel)]="username" 
+            placeholder="Nome do Jogador"
+            (keyup.enter)="buscarJogos()"
+            [disabled]="isLoading"
+            class="custom-form-input"
+          />
+          <button class="btn-search-trigger" (click)="buscarJogos()" [disabled]="isLoading || !username.trim()">
+            <img src="/imagens/lupa.png" alt="Pesquisar" class="icon-small-ui" />
+          </button>
+        </div>
+      </div>
+
+      <div class="date-range-filters">
+        <p class="filter-group-title">Datas Entre:</p>
+        <div class="form-field-group" aria-label="Data inicial para a pesquisa de jogos">
+          <label class="form-field-label">Inicial:</label>
+          <input type="date" [(ngModel)]="dataInicial" (change)="aplicarFiltros()" class="custom-form-input" aria-label="Data inicial" />
+        </div>
+        <div class="form-field-group" aria-label="Data final para a pesquisa de jogos">
+          <label class="form-field-label">Final:</label>
+          <input type="date" [(ngModel)]="dataFinal" (change)="aplicarFiltros()" class="custom-form-input" aria-label="Data final" />
+        </div>
+      </div>
+
+      <div class="color-selection-row">
+        <button class="btn-color-toggle white-piece" [class.active]="corSelecionada === 'brancas'" (click)="mudarFiltroCor('brancas')">
+          <img src="/imagens/pecaBranca.png" alt="Brancas" class="icon-small-ui" />
+        </button>
+        <button class="btn-color-toggle half-piece" [class.active]="corSelecionada === 'ambas'" (click)="mudarFiltroCor('ambas')">
+          <img src="/imagens/pecaBrancaPreta.png" alt="Ambas" class="icon-small-ui" />
+        </button>
+        <button class="btn-color-toggle black-piece" [class.active]="corSelecionada === 'pretas'" (click)="mudarFiltroCor('pretas')">
+          <img src="/imagens/pecaPreta.png" alt="Pretas" class="icon-small-ui" />
+        </button>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-banner-alert">
+        {{ errorMessage }}
+      </div>
+    </aside>
+
+    <section class="layout-card-panel section-lista-jogos">
+      <h3 class="panel-title">Lista de Jogos</h3>
+      
+      <div class="games-list-scroll-area">
+        <div *ngIf="isLoading" class="loading-state-alert">
+          A carregar jogos do Chess.com...
+        </div>
+
+        <div *ngIf="!isLoading && games.length === 0" class="empty-state-alert">
+          Nenhum jogo encontrado. Introduz o utilizador e clica na lupa.
+        </div>
+
+        <div 
+          *ngFor="let jogo of games" 
+          class="custom-game-card" 
+          [class.selected]="jogo === jogoSelecionado"
+          (click)="selecionarJogo(jogo)"
+          tabindex="0"
+        >
+          <span class="piece-side-indicator">
+            <img src="/imagens/pecaBranca.png" alt="Brancas" class="icon-small-ui" />
+          </span>
+          <span class="match-medal-indicator">
+            @if (jogo.white.result === 'win') {
+              <img src="/imagens/medal.png" alt="Vitória Brancas" class="icon-small-ui" />
+            }
+          </span>
+          <div class="game-card-meta-info">
+            <p class="versus-players-text">{{ jogo.white.username }} vs {{ jogo.black.username }}</p>
+            <p class="game-match-class">Classe: {{ jogo.time_class }}</p>
+          </div>
+          <span class="match-medal-indicator">
+            @if (jogo.black.result === 'win') {
+              <img src="/imagens/medal.png" alt="Vitória Pretas" class="icon-small-ui" />
+            }
+          </span>
+          <span class="piece-side-indicator">
+            <img src="/imagens/pecaPreta.png" alt="Pretas" class="icon-small-ui" />
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <article class="layout-card-panel section-resumo-estatisticas">
+      <h3 class="panel-title">Resumo</h3>
+      
+      <div class="resumo-panel-wrapper" tabindex="0">
+        <div *ngIf="!jogoSelecionado" class="resumo-empty-placeholder">
+          <p>Seleciona uma partida da lista para ver o resumo de precisão e a classificação dos lances.</p>
+        </div>
+
+        <div *ngIf="jogoSelecionado" class="resumo-data-content">
+          
+          <div class="stats-data-row" tabindex="0">
+            <span class="stats-row-label">Jogadores:</span>
+            <span class="stats-white-value ui-ellipsis">{{ jogoSelecionado.white.username }}</span>
+            <div class="stats-row-spacer"></div>
+            <span class="stats-black-value ui-ellipsis">{{ jogoSelecionado.black.username }}</span>
+          </div>
+
+          <div class="stats-data-row" tabindex="0">
+            <span class="stats-row-label">Precisão:</span>
+            <span class="stats-white-value font-highlight-large">{{ precisaoBrancas }}%</span>
+            <div class="stats-row-spacer"></div>
+            <span class="stats-black-value font-highlight-large">{{ precisaoPretas }}%</span>
+          </div>
+
+          <div class="ui-horizontal-divider"></div>
+
+          <div *ngIf="progressoPercentagem > 0 && progressoPercentagem < 100" class="analysis-loading-state" tabindex="0">
+            <div class="hourglass-animation-wrapper">
+              <img src="/imagens/hourglass.png" alt="Carregando" class="icon-small-ui" />  
+            </div>
+            <p class="analysis-loading-title">A analisar partida...</p>
+            <p class="analysis-progress-subtitle">Lance {{ lanceAtual }} de {{ totalLancesAnalisar }}</p>
+            <div class="custom-progress-track">
+              <div class="custom-progress-fill" [style.width.%]="progressoPercentagem"></div>
+            </div>
+            <span class="analysis-percentage-badge">{{ progressoPercentagem }}%</span>
+          </div>
+
+          <div *ngIf="progressoPercentagem === 100" class="badges-scrollable-container" tabindex="0">
+            
+            <div class="stats-data-row">
+              <span class="stats-row-label">Brilhante:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.brilliant }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui brilliant">
+                  <img src="/imagens/Brilhante.png" alt="Brilhante" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.brilliant }}</span>
+            </div>
+
+            <div class="stats-data-row" tabindex="0">
+              <span class="stats-row-label">Excelente:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.excellent }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui excellent">
+                  <img src="/imagens/Excelente.png" alt="Excelente" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.excellent }}</span>
+            </div>
+
+            <div class="stats-data-row"   tabindex="0">
+              <span class="stats-row-label">Livro:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.book }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui book">
+                  <img src="/imagens/Livro.png" alt="Livro" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.book }}</span>
+            </div>
+
+            <div class="stats-data-row"   tabindex="0">
+              <span class="stats-row-label">Melhor:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.best }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui best">
+                  <img src="/imagens/MelhorLance.png" alt="Melhor" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.best }}</span>
+            </div>
+
+            <div class="stats-data-row"  tabindex="0">
+              <span class="stats-row-label">Ótimo:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.great }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui great">
+                  <img src="/imagens/MuitoBom.png" alt="Ótimo" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.great }}</span>
+            </div>
+
+            <div class="stats-data-row" tabindex="0">
+              <span class="stats-row-label">Bom:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.good }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui good">
+                  <img src="/imagens/Bom.png" alt="Bom" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.good }}</span>
+            </div>
+
+            <div class="stats-data-row" tabindex="0">
+              <span class="stats-row-label">Imprecisão:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.inaccuracy }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui inaccuracy">
+                  <img src="/imagens/Imprecisao.png" alt="Imprecisão" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.inaccuracy }}</span>
+            </div>
+
+            <div class="stats-data-row" tabindex="0">
+              <span class="stats-row-label">Erro:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.mistake }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui mistake">
+                  <img src="/imagens/erro.png" alt="Erro" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.mistake }}</span>
+            </div>
+
+            <div class="stats-data-row" tabindex="0">
+              <span class="stats-row-label">Desperdicio:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.miss }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui miss">
+                  <img src="/imagens/Desperdicio.png" alt="Desperdício" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.miss }}</span>
+            </div>
+
+            <div class="stats-data-row" tabindex="0">
+              <span class="stats-row-label">Asneira:</span>
+              <span class="stats-white-value">{{ contadoresBrancas.blunder }}</span>
+              <div class="stats-row-spacer">
+                <div class="badge-icon-ui blunder">
+                  <img src="/imagens/Asneira.png" alt="Asneira" class="icon-small-ui" />
+                </div>
+              </div>
+              <span class="stats-black-value">{{ contadoresPretas.blunder }}</span>
+            </div>
+
+            <div class="ui-horizontal-divider"></div>
+
+            <div class="stats-data-row" tabindex="0">
+              <span class="stats-row-label font-label-small">Rating da partida:</span>
+              <span class="stats-white-value font-highlight-large">{{ ratingPartidaBrancas }}</span>
+              <div class="stats-row-spacer"></div>
+              <span class="stats-black-value font-highlight-large">{{ ratingPartidaPretas }}</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="floating-action-footer">
+    <button class="btn-action-primary-fixed" (click)="irParaAnalise()" [disabled]="!jogoSelecionado">
+      Analisar Partida
+    </button>
+  </div>
+
+</div>

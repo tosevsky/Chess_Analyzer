@@ -1,0 +1,145 @@
+.save-flow-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  font-family: 'Arial', sans-serif;
+}
+
+.green-bg { background-color: #f1fcf4; }
+
+.save-flow-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 700px;
+  width: 100%;
+  padding: 40px;
+  text-align: center;
+}
+
+.wide-box {
+  max-width: 900px;
+  background-color: #ffffff;
+  border: 3px solid #000000;
+  border-radius: 40px;
+  box-shadow: 0 6px 0 #000000;
+}
+
+.flow-main-title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 50px;
+}
+
+.flow-section-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.flow-buttons-row {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-flow {
+  border: 2px solid #000000;
+  border-radius: 25px;
+  padding: 15px 35px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #000000;
+}
+
+.green-btn { background-color: #a5d6a7; }
+.grey-btn { background-color: #dcdcdc; }
+
+.folders-popup-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.popup-folder-card {
+  background-color: #ffffff;
+  border: 3px solid #000000;
+  border-radius: 25px;
+  padding: 25px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #000000;
+}
+
+.popup-folder-card:hover, .active-folder-card {
+  background-color: #c8e6c9;
+}
+
+.popup-folder-icon { font-size: 3rem; }
+.popup-folder-name { font-size: 1.1rem; font-weight: bold; }
+
+.bottom-name-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  border: 3px solid #000000;
+  border-radius: 25px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+}
+
+.bottom-name-bar label { font-size: 1.2rem; font-weight: bold; }
+
+.input-custom-name {
+  flex-grow: 1;
+  border: none;
+  background-color: #dcdcdc;
+  border-radius: 15px;
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  outline: none;
+}
+
+.btn-flow-action {
+  border: 2px solid #000000;
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #000000;
+}
+
+.big-success-checkmark {
+  background-color: #2ecc71;
+  color: #ffffff;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  font-weight: bold;
+  box-shadow: 0 6px 0 #1b7543;
+  margin-bottom: 20px;
+}
+
+.macro-btn { padding: 12px 60px; border-radius: 20px; }

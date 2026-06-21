@@ -1,0 +1,266 @@
+
+app-header {
+  position: relative;
+  z-index: 100000 !important;
+  width: 100%;
+  display: block;
+}
+
+
+.save-flow-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  z-index: 9999;
+  font-family: 'Arial', sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-top: 110px;
+}
+
+.green-bg { 
+  background-color: #f1fcf4; 
+}
+
+
+.save-flow-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 700px;
+  width: 100%;
+  
+ 
+  flex-grow: 1; 
+  height: calc(100vh - 140px); 
+  max-height: 72vh; 
+  
+  padding: 30px;
+  text-align: center;
+  box-sizing: border-box;
+  
+ 
+  margin: auto auto 25px auto; 
+}
+
+
+.wide-box {
+  max-width: 900px;
+  background-color: #ffffff;
+  border: 3px solid #000000;
+  border-radius: 40px;
+  box-shadow: 0 6px 0 #000000;
+}
+
+
+.flow-main-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #000000;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.flow-section-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.flow-buttons-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.btn-flow {
+  border: 2px solid #000000;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #000000;
+}
+
+.green-btn { background-color: #a5d6a7; }
+.grey-btn { background-color: #dcdcdc; }
+
+
+.folders-scroll-wrapper {
+  width: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 5px;
+  margin-bottom: 25px;
+  box-sizing: border-box;
+}
+
+.folders-scroll-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+.folders-scroll-wrapper::-webkit-scrollbar-thumb {
+  background-color: #000000;
+  border-radius: 3px;
+}
+
+.folders-popup-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 15px;
+  width: 100%;
+}
+
+.popup-folder-card {
+  background-color: #ffffff;
+  border: 3px solid #000000;
+  border-radius: 18px;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #000000;
+  box-sizing: border-box;
+}
+
+.popup-folder-card:hover, .active-folder-card {
+  background-color: #c8e6c9;
+}
+
+.popup-folder-icon { 
+  font-size: 2.2rem; 
+} 
+.popup-folder-name { 
+  font-size: 0.95rem; 
+  font-weight: bold;
+  word-break: break-word; 
+}
+
+.icon-folder {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+.bottom-name-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  border: 3px solid #000000;
+  border-radius: 25px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  margin-top: auto;
+}
+
+.bottom-name-bar label { font-size: 1.1rem; font-weight: bold; white-space: nowrap; }
+
+.input-custom-name {
+  flex-grow: 1;
+  border: none;
+  background-color: #dcdcdc;
+  border-radius: 15px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  outline: none;
+  width: 90%;
+  align-self: center;
+}
+
+.btn-flow-action {
+  border: 2px solid #000000;
+  border-radius: 20px;
+  padding: 10px 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #000000;
+  width: 40%;
+  align-self: center;
+}
+
+.big-success-checkmark {
+  background-color: #2ecc71;
+  color: #ffffff;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  font-weight: bold;
+  box-shadow: 0 6px 0 #1b7543;
+  margin-bottom: 20px;
+}
+
+.macro-btn { padding: 12px 60px; border-radius: 20px; }
+
+
+@media (max-width: 600px) {
+  .save-flow-box {
+    padding: 15px;
+    max-width: 95%;
+    max-height: 82vh;
+    margin: auto auto 15px auto;
+  }
+
+  .wide-box {
+    border-radius: 25px;
+  }
+
+  .flow-main-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .flow-section-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+
+  .flow-buttons-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-flow {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.1rem;
+  }
+
+  .bottom-name-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 20px;
+  }
+
+  .bottom-name-bar label {
+    text-align: left;
+  }
+
+  .big-success-checkmark {
+    width: 100px;
+    height: 100px;
+    font-size: 3.5rem;
+  }
+}

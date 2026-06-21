@@ -1,0 +1,39 @@
+
+<app-header></app-header>
+
+<div class="save-flow-screen green-bg">
+   
+  <div *ngIf="!confirmacaoAtiva" class="save-flow-box wide-box">
+    <h2 class="flow-section-title">Repertorio</h2>
+<div class="folders-scroll-wrapper" tabindex="0" aria-label="Lista de pastas para guardar o jogo">
+    <div class="folders-popup-grid">
+      <div *ngFor="let pasta of pastas" 
+           class="popup-folder-card"
+           [class.active-folder-card]="saveGameService.partidaParaSalvar.folderId === pasta.id"
+           (click)="selecionarPasta(pasta)">
+        <span class="popup-folder-icon">
+          <img src="/imagens/chessFolder.jpg" alt="Pasta" class="icon-folder" />
+        </span>
+        <span class="popup-folder-name">{{ pasta.nome }}</span>
+      </div>
+    </div>
+</div>
+
+    <div class="bottom-name-bar">
+      <label>Nome do jogo:</label>
+      <input type="text" [(ngModel)]="saveGameService.partidaParaSalvar.nomeCustomizado" class="input-custom-name" aria-label="Nome do jogo" />
+      <button class="btn-flow-action green-btn" (click)="clicouGuardar()">Guardar</button>
+    </div>
+  </div>
+
+  <div *ngIf="confirmacaoAtiva" class="save-flow-box">
+    <h2 class="flow-main-title">
+      Deseja Guardar “ <span class="text-highlight">{{ saveGameService.partidaParaSalvar.nomeCustomizado }}</span> ” em “ <span class="text-highlight">{{ saveGameService.partidaParaSalvar.nomeFolder }}</span> ” ?
+    </h2>
+    <div class="flow-buttons-row">
+      <button class="btn-flow green-btn" (click)="confirmarEGravarNoSupabase()">Sim, guardar</button>
+      <button class="btn-flow grey-btn" (click)="confirmacaoAtiva = false">Não</button>
+    </div>
+  </div>
+
+</div>

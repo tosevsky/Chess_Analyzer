@@ -1,0 +1,335 @@
+
+app-header {
+  position: relative;
+  z-index: 100000 !important;
+  width: 100%;
+  display: block;
+}
+
+
+.analysis-page {
+  min-height: calc(100vh - 90px);
+  background: linear-gradient(to bottom, #ffffff, #f4f9f5);
+  padding: 1.5rem 2rem;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  box-sizing: border-box;
+  padding-top: 110px;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.analysis-workspace {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; 
+  gap: 3.5rem;
+  max-width: 1350px;
+  margin: 0 auto;
+  width: 100%;
+  align-items: start;
+}
+
+.analysis-left-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.board-and-eval-flex {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+
+.evaluation-bar-container {
+  width: 20px;
+  height: 500px;
+  border-radius: 6px;
+  background-color: #1e293b;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.2), 0 4px 12px rgba(0,0,0,0.05);
+  flex-shrink: 0;
+}
+
+.eval-white-zone {
+  background-color: #ffffff;
+  width: 100%;
+  transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.eval-indicator-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #ef4444;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%); 
+  pointer-events: none;
+}
+
+
+.chessboard-area {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.player-label {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0.6rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating-tag {
+  font-weight: 500;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.chess-board {
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1; 
+  margin: 0 auto;
+  position: relative;
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.navigation-controls-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.3rem 0.8rem;
+  transition: all 0.15s ease;
+  border-radius: 8px;
+  outline: none !important;
+}
+
+.nav-btn:hover {
+  color: #2c5e3b;
+  background-color: #f0f7f1;
+}
+.nav-btn:active { transform: scale(0.9); }
+.font-double { font-size: 1.4rem; }
+
+
+.moves-panel-area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.8rem 1.5rem;
+  box-shadow: 0 10px 30px rgba(44, 94, 59, 0.03);
+  border: 1px solid rgba(44, 94, 59, 0.05);
+  box-sizing: border-box;
+  height: 600px;
+}
+
+.moves-header-labels {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr;
+  padding: 0 0.5rem 0.8rem 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #4a5568;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.lbl-brancas { grid-column: 2; text-align: left; }
+.lbl-pretas { grid-column: 3; text-align: left; }
+
+.moves-scroll-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  outline: none !important;
+  user-select: none;
+}
+
+.moves-scroll-container::-webkit-scrollbar { width: 5px; }
+.moves-scroll-container::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+.move-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.move-number { color: #414243; font-weight: 500; }
+
+.move-move-col {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-right: 0.5rem;
+  outline: none !important;
+}
+
+.move-move-col:hover { background-color: #f8fafc; }
+.move-move-col.active-move { background-color: #e8f5e9 !important; color: #2c5e3b; }
+.move-move-col.active-move .move-san { color: #2c5e3b; font-weight: 700; }
+.move-san { color: #334155; }
+
+.move-eval { font-size: 0.85rem; font-weight: 500; padding: 1px 4px; border-radius: 4px; }
+.move-eval.positivo { color: #127e3a; background: #f0fdf4; font-weight: 600; }
+.move-eval.negativo { color: #9e1c1c; background: #fef2f2; font-weight: 600; }
+
+.action-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.2rem;
+}
+
+.btn-terminar-analise {
+  width: 100%;
+  background-color: #2c5e3b; 
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.8rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(44, 94, 59, 0.15);
+  transition: all 0.2s ease;
+}
+
+.btn-terminar-analise:hover {
+  background-color: #224a2e;
+  box-shadow: 0 6px 16px rgba(44, 94, 59, 0.25);
+  transform: translateY(-1px);
+}
+
+
+.save-flow-screen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.save-flow-box-modal {
+  background: #ffffff;
+  border: 1px solid rgba(44, 94, 59, 0.08);
+  border-radius: 24px;
+  padding: 3rem 2.5rem;
+  text-align: center;
+  max-width: 540px;
+  width: 100%;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  animation: modalScaleUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalScaleUp {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.flow-main-title-popup { font-size: 1.6rem; font-weight: 700; color: #1e293b; margin-bottom: 2.2rem; }
+.flow-buttons-row-popup { display: flex; gap: 0.85rem; justify-content: center; width: 100%; }
+.btn-flow-popup { border: none; border-radius: 12px; padding: 0.85rem 1.5rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; flex: 1; }
+.green-btn-popup { background-color: #2c5e3b; color: #ffffff; box-shadow: 0 4px 12px rgba(44, 94, 59, 0.2); }
+.green-btn-popup:hover { background-color: #224a2e; transform: translateY(-1px); }
+.grey-btn-popup { background-color: #9e1c1c; color: #ffffff; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15); }
+.grey-btn-popup:hover { background-color: #9e1c1c; transform: translateY(-1px); }
+.outline-btn-popup { background-color: transparent; color: #475569; border: 1.5px solid #cbd5e1; }
+.outline-btn-popup:hover { background-color: #f8fafc; border-color: #94a3b8; }
+
+
+::ng-deep cg-container { position: absolute; width: 100%; height: 100%; top: 0; left: 0; display: block; }
+::ng-deep .chess-board cg-container { position: absolute !important; width: 100% !important; height: 100% !important; top: 0; left: 0; display: block !important; }
+::ng-deep .chess-board cg-board { position: absolute !important; width: 100% !important; height: 100% !important; display: block !important; background-size: cover !important; user-select: none; line-height: 0; filter: hue-rotate(50deg) saturate(0.7) brightness(0.95); }
+::ng-deep .chess-board cg-board piece { width: 12.5% !important; height: 12.5% !important; display: block !important; background-size: contain !important; background-repeat: no-repeat !important; background-position: center !important; z-index: 10 !important; opacity: 1 !important; visibility: visible !important; }
+.ui-ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+::ng-deep .chess-board piece.white.pawn   { background-image: url('https://lichess1.org/assets/piece/cburnett/wP.svg') !important; }
+::ng-deep .chess-board piece.white.knight { background-image: url('https://lichess1.org/assets/piece/cburnett/wN.svg') !important; }
+::ng-deep .chess-board piece.white.bishop { background-image: url('https://lichess1.org/assets/piece/cburnett/wB.svg') !important; }
+::ng-deep .chess-board piece.white.rook   { background-image: url('https://lichess1.org/assets/piece/cburnett/wR.svg') !important; }
+::ng-deep .chess-board piece.white.queen  { background-image: url('https://lichess1.org/assets/piece/cburnett/wQ.svg') !important; }
+::ng-deep .chess-board piece.white.king   { background-image: url('https://lichess1.org/assets/piece/cburnett/wK.svg') !important; }
+::ng-deep .chess-board piece.black.pawn   { background-image: url('https://lichess1.org/assets/piece/cburnett/bP.svg') !important; }
+::ng-deep .chess-board piece.black.knight { background-image: url('https://lichess1.org/assets/piece/cburnett/bN.svg') !important; }
+::ng-deep .chess-board piece.black.bishop { background-image: url('https://lichess1.org/assets/piece/cburnett/bB.svg') !important; }
+::ng-deep .chess-board piece.black.rook   { background-image: url('https://lichess1.org/assets/piece/cburnett/bR.svg') !important; }
+::ng-deep .chess-board piece.black.queen  { background-image: url('https://lichess1.org/assets/piece/cburnett/bQ.svg') !important; }
+::ng-deep .chess-board piece.black.king   { background-image: url('https://lichess1.org/assets/piece/cburnett/bK.svg') !important; }
+
+
+@media (max-width: 950px) {
+ 
+  .analysis-page { 
+    padding: 80px 1rem 1rem 1rem; 
+  }
+  
+  .analysis-workspace { 
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+  }
+  
+  .evaluation-bar-container { width: 14px; height: 360px; margin: 0; }
+  .player-label { font-size: 0.95rem; margin: 0.4rem 0; }
+  .ui-ellipsis { max-width: 120px; }
+  
+  .moves-panel-area { max-width: 100%; padding: 1.2rem 1rem; margin-top: 0.5rem; height: auto; }
+  .moves-scroll-container { height: 200px; }
+  
+  .navigation-controls-row { margin: 0.5rem 0 1rem 0; gap: 2rem; max-width: 100%; }
+  .nav-btn { font-size: 2.2rem; }
+  .font-double { font-size: 1.8rem; }
+  
+  .flow-buttons-row-popup { flex-direction: column; width: 100%; gap: 0.65rem; }
+  .btn-flow-popup { width: 100%; padding: 0.8rem; }
+  .save-flow-box-modal { padding: 2rem 1.5rem; }
+}

@@ -1,0 +1,90 @@
+ <app-header></app-header>
+<div class="repertoire-page">
+ 
+
+  <main class="repertoire-container">
+    
+    <div class="top-actions-row">
+      <h2 class="section-title">Repertório</h2>
+      
+      <div class="management-buttons-group">
+        <button class="btn-manage-action btn-add-folder" (click)="ativarModoCriar()">
+          Nova Pasta
+        </button>
+        <button 
+          class="btn-manage-action btn-delete-folder" 
+          [class.delete-mode-active]="modoEliminarAtivo()" 
+          (click)="alternarModoEliminar()"
+        >
+          {{ modoEliminarAtivo() ? 'Cancelar' : 'Apagar Pasta' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="delete-zone-alert" *ngIf="modoEliminarAtivo()">
+       Clique em cima da pasta que deseja remover definitivamente.
+    </div>
+
+    <div *ngIf="carregando" class="loading-state">A carregar as tuas pastas...</div>
+
+    <div *ngIf="!carregando" class="folders-grid">
+      <div 
+        *ngFor="let pasta of pastas" 
+        class="folder-card" 
+        [class.danger-folder-card]="modoEliminarAtivo()"
+        (click)="aoClicarNaPasta(pasta)"
+      >
+        <div class="folder-icon-wrapper">
+          <span class="icon-folder">
+            <img src="/imagens/chessFolder.jpg" alt="Pasta" class="icon-folder" />
+          </span>
+        </div>
+        <span class="folder-name">{{ pasta.nome }}</span>
+      </div>
+
+      <div class="folder-card preview-folder-card" *ngIf="modoCriar()">
+        <div class="folder-icon-wrapper">
+          <span class="icon-folder">
+            <img src="/imagens/chessFolder.jpg" alt="Nova" class="icon-folder" />
+          </span>
+        </div>
+        <span class="folder-name">{{ novoNomePasta || 'Nova_Pasta' }}</span>
+      </div>
+
+      <div *ngIf="pastas.length === 0 && !modoCriar()" class="empty-state">
+        Nenhuma pasta encontrada no teu repertoire.
+      </div>
+    </div>
+
+    <div class="creation-dock-wrapper" *ngIf="modoCriar()">
+      <div class="creation-pill-dock">
+        <label class="dock-input-label">Nome da Pasta</label>
+        <input 
+          type="text" 
+          class="dock-text-input" 
+          [(ngModel)]="novoNomePasta" 
+          placeholder="Ruy_lopez"
+          maxlength="20"
+        />
+        <button class="btn-dock-confirm" (click)="guardarNovaPasta()">Guardar</button>
+        <button class="btn-dock-cancel" (click)="cancelarCriacao()">Cancelar</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="delete-overlay-dialog" *ngIf="showDeleteDialog()">
+  <div class="delete-confirm-box">
+    <div class="delete-box-header">
+      <h3>Confirmação</h3>
+    </div>
+    <div class="delete-box-body">
+      <p>Tem a certeza de que pretende eliminar a pasta <strong>"{{ pastaParaEliminar?.nome }}"</strong>? A análise será perdida.</p>
+    </div>
+    <div class="delete-box-actions">
+      <button class="btn-box-cancel" (click)="cancelarEliminacao()">Cancelar</button>
+      <button class="btn-box-confirm" (click)="confirmarEliminacao()">Confirmar</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<app-header></app-header>
+
+<div class="analysis-page">
+
+  <main class="analysis-workspace">
+    
+    
+    <div class="analysis-left-column">
+      
+      <div class="board-and-eval-flex">
+        
+        <section class="evaluation-bar-container">
+          <div class="eval-white-zone" [style.height.%]="evalPercentagem"></div>
+          <div class="eval-indicator-line"></div>
+        </section>
+
+        
+        <section class="chessboard-area">
+          <div class="player-label top-player">
+            <span class="player-name-text ui-ellipsis">
+              {{ extrairMetaPGN(jogoReal, 'Black') || 'Adversário' }}
+            </span>
+            <span class="rating-tag">({{ extrairMetaPGN(jogoReal, 'BlackElo') || '???' }})</span>
+          </div>
+
+          <div #tabuleiroCg class="chess-board"></div>
+
+          <div class="player-label bottom-player">
+            <span class="player-name-text ui-ellipsis">
+              {{ extrairMetaPGN(jogoReal, 'White') || 'Brancas' }}
+            </span>
+            <span class="rating-tag">({{ extrairMetaPGN(jogoReal, 'WhiteElo') || '???' }})</span>
+          </div>
+        </section>
+      </div>
+
+      <div class="navigation-controls-row">
+        <button class="nav-btn font-double" (click)="primeiroLance()">«</button>
+        <button class="nav-btn" (click)="lanceAnterior()"><</button>
+        <button class="nav-btn" (click)="proximoLance()">></button>
+        <button class="nav-btn" (click)="ultimoLance()">»</button>
+      </div>
+
+    </div> 
+
+   
+    <section class="moves-panel-area">
+      <div class="moves-header-labels">
+        <span class="lbl-brancas">Brancas</span>
+        <span class="lbl-pretas">Pretas</span>
+      </div>
+
+      <div class="moves-scroll-container">
+        <div *ngFor="let linha of lancesPartida; let i = index; trackBy: trackByLance" class="move-row">
+          <span class="move-number">{{ i + 1 }}.</span>
+          
+          <div class="move-move-col" 
+               [class.active-move]="currentMoveIndex === i * 2"
+               (click)="$any(this).viajarParaLanceIndex(i * 2)"
+               tabindex=-1
+               >
+            <span class="move-san">{{ linha.brancas.san }}</span>
+            <span class="move-eval" [ngClass]="linha.brancas.tipo">{{ linha.brancas.eval }}</span>
+          </div>
+
+          <div *ngIf="linha.pretas" 
+               class="move-move-col" 
+               [class.active-move]="currentMoveIndex === (i * 2) + 1"
+               (click)="$any(this).viajarParaLanceIndex((i * 2) + 1)"
+                tabindex=-1  >
+            <span class="move-san">{{ linha.pretas.san }}</span>
+            <span class="move-eval" [ngClass]="linha.pretas.tipo">{{ linha.pretas.eval }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-footer">
+        <button class="btn-terminar-analise" (click)="terminarAnalise()">
+          Terminar Análise
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+ 
+  <div class="save-flow-screen-overlay" *ngIf="mostrarPopUpSalvar">
+    <div class="save-flow-box-modal">
+      <h2 class="flow-main-title-popup">Deseja guardar a partida?</h2>
+      <div class="flow-buttons-row-popup">
+        <button class="btn-flow-popup green-btn-popup" (click)="guardarEClose()">Sim, guardar</button>
+        <button class="btn-flow-popup outline-btn-popup" (click)="fecharPopUp()">Voltar à análise</button>
+        <button class="btn-flow-popup grey-btn-popup" (click)="recusarEAbandonar()">Não</button>
+      </div>
+    </div>
+  </div>
+
+</div>

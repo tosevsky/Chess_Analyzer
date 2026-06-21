@@ -1,0 +1,26 @@
+<app-header></app-header>
+<div class="home-container">
+  
+
+  <main class="menu-grid">
+    
+    <div class="menu-card" (click)="navegar('pesquisa')">
+      <div class="icon-placeholder"><img src="/imagens/find.png" alt="Pesquisar" class="card-icon" /></div>
+      <h3>Nova Análise</h3>
+      <p>Importa e analisa as tuas partidas do Chess.com</p>
+    </div>
+
+    <div class="menu-card" (click)="abrirChessCom()">
+      <div class="icon-placeholder"><img src="/imagens/chess-board.png" alt="Jogar" class="card-icon" /></div>
+      <h3>Jogar online</h3>
+      <p>Acede diretamente à plataforma do Chess.com</p>
+    </div>
+
+    <div class="menu-card" (click)="navegar('repertorio')">
+      <div class="icon-placeholder"><img src="/imagens/folder.png" alt="Pasta" class="card-icon" /></div>
+      <h3>Meu Repertório</h3>
+      <p>Gere as tuas pastas e revê os teus jogos guardados</p>
+    </div>
+
+  </main>
+</div>

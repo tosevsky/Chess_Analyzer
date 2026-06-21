@@ -1,0 +1,55 @@
+<app-header></app-header>
+<div class="repertoire-page">
+  
+  <main class="repertoire-container">
+    <div class="top-actions-row">
+      <h2 class="section-title">
+        Repertório: <span class="highlight-title">"{{ nomePasta }}"</span>
+      </h2>
+    </div>
+
+    <div *ngIf="carregando" class="loading-state">A carregar os teus jogos...</div>
+
+    <div *ngIf="!carregando" class="games-list-container">
+      <div *ngFor="let jogo of jogos" class="game-item-row" (click)="abrirAnaliseJogo(jogo)">
+        
+        <div class="game-info-left">
+          <span class="game-icon-bullet"></span>
+          <span class="game-display-name">{{ jogo.nome || 'Partida Guardada' }}</span>
+        </div>
+        
+        <div class="game-info-right">
+          <span class="game-date">{{ jogo.data_analise | date:'dd/MM/yyyy HH:mm' }}</span>
+          
+          <button class="btn-abrir-analise" (click)="abrirAnaliseJogo(jogo); $event.stopPropagation()">Analisar</button>
+          
+          <button class="btn-eliminar-jogo" (click)="abrirConfirmacaoEliminar($event, jogo)" aria-label="Eliminar análise do jogo">
+            <svg viewBox="0 0 24 24" class="icon-trash">
+              <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <div *ngIf="jogos.length === 0" class="empty-state">
+        Esta pasta ainda não tem nenhuma análise guardada.
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="delete-overlay-dialog" *ngIf="showDeleteModal">
+  <div class="delete-confirm-box">
+    <div class="delete-box-header">
+      <h3>Confirmação</h3>
+    </div>
+    <div class="delete-box-body">
+      <p>Tem a certeza de que pretende eliminar a análise do jogo <strong>"{{ jogoParaEliminar?.nome }}"</strong> definitivamente?</p>
+    </div>
+    <div class="delete-box-actions">
+      <button class="btn-box-cancel" (click)="fecharModal()">Não</button>
+      <button class="btn-box-confirm" (click)="confirmarEliminacao()">Sim</button>
+    </div>
+  </div>
+</div>

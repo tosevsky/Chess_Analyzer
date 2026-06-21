@@ -1,0 +1,51 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>ChessAnalyzer.PT</h2>
+    <p>{{ isSignUpMode ? 'Cria a tua nova conta abaixo' : 'Insere as tuas credenciais para aceder ao sistema' }}</p>
+
+    <div *ngIf="errorMessage" class="error-banner">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-banner">
+      {{ successMessage }}
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email" 
+          placeholder="exemplo@email.com"
+          autocomplete="email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          placeholder="••••••••"
+          autocomplete="current-password"
+        />
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid || isLoading">
+        {{ isLoading ? 'A processar...' : (isSignUpMode ? 'Criar Conta' : 'Entrar') }}
+      </button>
+    </form>
+
+    <div class="toggle-mode-container">
+      <p *ngIf="!isSignUpMode">
+        Não tens conta? <a (click)="toggleMode()">Regista-te aqui</a>
+      </p>
+      <p *ngIf="isSignUpMode">
+        Já tens uma conta? <a (click)="toggleMode()">Inicia sessão aqui</a>
+      </p>
+    </div>
+  </div>
+</div>

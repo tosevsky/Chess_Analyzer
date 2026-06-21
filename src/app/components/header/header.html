@@ -1,0 +1,36 @@
+<div class="header-container">
+
+  <div class="header-brand" (click)="navigateHome()">
+    <img *ngIf="showLogo" src="/imagens/logo_chessAnalizer.png" alt="Logo" class="logo-icon" />
+    <h1 class="header-title">{{ title }}</h1>
+  </div>
+
+  <nav class="header-nav-section" tabindex="0" role="navigation" aria-label="Navegação do cabeçalho">
+    <button class="nav-link nav-link-back" (click)="goBack()" [class.disabled]="!canGoBack()" aria-label="Voltar">
+      <img src="/imagens/back.png" alt="Voltar" class="nav-icon-img" />
+      <span class="nav-text">Voltar</span>
+    </button>
+
+    <button class="nav-link" (click)="navigateHome()" aria-label="Ir para a página inicial">
+      <img src="/imagens/home.png" alt="Home" class="nav-icon-img" />
+      <span class="nav-text">Home</span>  
+    </button>
+
+    <button  class="nav-link" (click)="navigateRepertoire()"  aria-label="Ir para o repertório">
+      <img src="/imagens/folder.png" alt="Repertório" class="nav-icon-img" />
+      <span class="nav-text">Repertório</span>
+    </button>
+    
+    <button class="nav-link" (click)="navigateNewAnalysis()"  aria-label="Ir para nova análise">
+      <img src="/imagens/find.png" alt="Nova Análise" class="nav-icon-img" />
+      <span class="nav-text">Nova Análise</span>
+    </button>
+  </nav>
+
+  <div class="header-actions">
+    <button class="btn-header-action" (click)="onActionClick()"  aria-label="Executar ação">
+      {{ actionLabel }}
+    </button>
+  </div>
+
+</div>
