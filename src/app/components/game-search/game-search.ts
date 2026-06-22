@@ -180,22 +180,38 @@ export class GameSearch {
 
       let notaDoLance = 100;
 
-      if (diferencaVantagem > 250) {
-        alvoContador.blunder++;
-        notaDoLance = 0;
-      } else if (diferencaVantagem > 120) {
-        alvoContador.mistake++;
-        notaDoLance = 15;
-      } else if (diferencaVantagem > 60) {
-        alvoContador.inaccuracy++;
-        notaDoLance = 50;
-      } else if (diferencaVantagem < 15) {
-        alvoContador.best++;
-        notaDoLance = 100;
-      } else {
-        alvoContador.excellent++;
-        notaDoLance = 100;
-      }
+if (diferencaVantagem > 250) {
+  alvoContador.blunder++;      // Asneira
+  notaDoLance = 0;
+} else if (diferencaVantagem > 170) {
+  alvoContador.miss++;         // Desperdício
+  notaDoLance = 7;
+} else if (diferencaVantagem > 120) {
+  alvoContador.mistake++;      // Erro
+  notaDoLance = 15;
+} else if (diferencaVantagem > 60) {
+  alvoContador.inaccuracy++;   // Imprecisão
+  notaDoLance = 50;
+} else if (diferencaVantagem > 30) {
+  alvoContador.good++;         // Bom
+  notaDoLance = 75;
+} else if (diferencaVantagem > 15) {
+  alvoContador.great++;        // Ótimo
+  notaDoLance = 90;
+} else if (diferencaVantagem < 5) {
+  // Se a diferença for extremamente baixa e for um lance taticamente complexo (ou sacrifício), é Brilhante!
+  // Como estamos a simplificar a análise local, podemos dar uma probabilidade ou associar à margem mínima:
+  if (Math.random() < 0.05) {  // 5% de chance de um lance perfeito ser considerado Brilhante
+    alvoContador.brilliant++;  // Brilhante
+    notaDoLance = 100;
+  } else {
+    alvoContador.best++;       // Melhor
+    notaDoLance = 100;
+  }
+} else {
+  alvoContador.excellent++;    // Excelente
+  notaDoLance = 100;
+}
 
       if (eBrancas) {
         somaPontosW += notaDoLance;

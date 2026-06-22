@@ -8,11 +8,9 @@ export class GameAnalysisService {
   public jogoAtivo: any = null;
 
   public rotaDestinoRetida: string | null = null;
-
   
   public isAnalysisInProgress = signal(false);
 
-  
   public hasUnsavedChanges = signal(false);
 
   setAnalysisInProgress(inProgress: boolean) {
